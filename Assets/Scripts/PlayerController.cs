@@ -44,13 +44,27 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
             PowerupIndicator.SetActive(true);
+            if(hasPotion){
+                PowerupIndicator.transform.localScale *= 2.6f;
+            }
         }    
         if(other.CompareTag("Potion")){
-            transform.localScale *= 2.5f;
-            Destroy(other.gameObject);
-            StartCoroutine(scaleup());
-            PlayerRB.mass = 6;
-            speed = 35;
+            if(hasPowerUp){
+                PowerupIndicator.transform.localScale *= 2.6f;
+            }
+            if(!hasPotion){
+                transform.localScale *= 2.5f;
+                Destroy(other.gameObject);
+                StartCoroutine(scaleup());
+                PlayerRB.mass = 6;
+                speed = 35;
+                hasPotion = true;   
+            }
+            else{
+                Destroy(other.gameObject);
+                StartCoroutine(scaleup());
+            }
+            
         }
     }
 
@@ -73,6 +87,12 @@ public class PlayerController : MonoBehaviour
             EnemyRB.AddForce(AwayFromPlayer * 1.7f,ForceMode.Impulse);
             audioSource.PlayOneShot(NormalHit,2);
         }
+        else if(other.gameObject.CompareTag("Enemy") && hasPowerUp && hasPotion){
+            Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
+            Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
+            EnemyRB.AddForce(AwayFromPlayer * 20,ForceMode.Impulse);
+
+        }
     }
 
     // if powerup is activated then it deactivates after 7 seconds
@@ -83,9 +103,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator scaleup(){
         yield return new WaitForSeconds(9);
-        transform.localScale /= 2.5f;
+        transform.localScale = new Vector3(1.5f,1.5f,1.5f);
         PlayerRB.mass = 2;
         speed = 15;
+        PowerupIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
+        hasPotion = false;
 
     }
 

@@ -113,7 +113,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
     void SpawnPotion(){
-        int chance = Random.Range(1,8500);
+        int chance = Random.Range(1,1500);
         if( chance == 23){
          Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
         }
