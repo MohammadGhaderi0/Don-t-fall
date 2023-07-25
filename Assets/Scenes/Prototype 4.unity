@@ -168,6 +168,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 84e419a7b8eefb940b1a4c9e2ae07ac8, type: 2}
   - {fileID: 2100000, guid: 046dcb808eb146a47b2423ed548c084b, type: 2}
   - {fileID: 2100000, guid: 5d499b415c1e51f4b8f59c58fba87e0a, type: 2}
+  PotionPrefab: {fileID: 2907620968257007431, guid: 5c8b9086eed73ba4ca1554b497da0add, type: 3}
 --- !u!224 &216296119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -881,7 +882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2a6ff1f20ad4a4d94aecb54ae2ff8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
   strength: 10
   PowerupIndicator: {fileID: 1380831037}
   NormalHit: {fileID: 8300000, guid: 74084b68d694df54488539fc57233822, type: 3}

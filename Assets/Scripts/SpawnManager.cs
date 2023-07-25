@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
 
     public TMP_Text waveText;
     public Material[] materials;
+    public GameObject PotionPrefab;
     void Start()
     {
         // starting the first wave for the first time
@@ -49,6 +50,8 @@ public class SpawnManager : MonoBehaviour
             SpawnPowerUp();
             spawnTimer = 0f;
         }
+
+        SpawnPotion();
     }
 
 
@@ -107,6 +110,12 @@ public class SpawnManager : MonoBehaviour
     {
         if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=4){
             Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+        }
+    }
+    void SpawnPotion(){
+        int chance = Random.Range(1,8500);
+        if( chance == 23){
+         Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
         }
     }
 

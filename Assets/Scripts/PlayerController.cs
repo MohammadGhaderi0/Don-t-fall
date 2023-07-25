@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 7;
+    private float speed = 15;
     private Rigidbody PlayerRB;
     private GameObject FocalPoint;
     private bool hasPowerUp;
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip SpecialHit;
     public AudioSource audioSource;
     private bool GameOver;
+    private bool hasPotion;
   
 
     // Start is called before the first frame update
@@ -44,7 +45,15 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
             PowerupIndicator.SetActive(true);
         }    
+        if(other.CompareTag("Potion")){
+            transform.localScale *= 2.5f;
+            Destroy(other.gameObject);
+            StartCoroutine(scaleup());
+            PlayerRB.mass = 6;
+            speed = 35;
+        }
     }
+
 
     // If player collides with enemy and has power up, shoot the enemy
     private void OnCollisionEnter(Collision other) {
@@ -72,4 +81,12 @@ public class PlayerController : MonoBehaviour
         hasPowerUp = false;
         PowerupIndicator.SetActive(false);
     }
+    IEnumerator scaleup(){
+        yield return new WaitForSeconds(9);
+        transform.localScale /= 2.5f;
+        PlayerRB.mass = 2;
+        speed = 15;
+
+    }
+
 }
