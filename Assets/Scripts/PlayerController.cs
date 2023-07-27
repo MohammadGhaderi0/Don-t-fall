@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     private bool GameOver;
     private bool hasPotion;
+    private float PotionTime;
+    private float powerupTime;
   
 
     // Start is called before the first frame update
@@ -34,6 +36,14 @@ public class PlayerController : MonoBehaviour
 
         // updating the Transform of powerup ring 
         PowerupIndicator.transform.position = transform.position -new Vector3(0,0.45f,0);
+        if(hasPotion){
+            PotionTime -= Time.deltaTime;
+            scaledown();
+        }
+        if(hasPowerUp){
+            powerupTime -= Time.deltaTime;
+            powerdown();
+        }
         
     }
 
@@ -42,27 +52,27 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("PowerUp")){
             hasPowerUp = true;
             Destroy(other.gameObject);
-            StartCoroutine(PowerupCountdownRoutine());
+            powerupTime = 7;
             PowerupIndicator.SetActive(true);
             if(hasPotion){
-                PowerupIndicator.transform.localScale *= 2.6f;
+                PowerupIndicator.transform.localScale = new Vector3(8.58f,8.58f,8.58f);
             }
         }    
         if(other.CompareTag("Potion")){
             if(hasPowerUp){
-                PowerupIndicator.transform.localScale *= 2.6f;
+                PowerupIndicator.transform.localScale  = new Vector3(8.58f,8.58f,8.58f);
             }
             if(!hasPotion){
                 transform.localScale *= 2.5f;
                 Destroy(other.gameObject);
-                StartCoroutine(scaleup());
+                PotionTime = 7;
                 PlayerRB.mass = 6;
                 speed = 35;
                 hasPotion = true;   
             }
             else{
                 Destroy(other.gameObject);
-                StartCoroutine(scaleup());
+                PotionTime = 7;
             }
             
         }
@@ -78,6 +88,7 @@ public class PlayerController : MonoBehaviour
             PowerupIndicator.SetActive(false);
             hasPowerUp = false;
             audioSource.PlayOneShot(SpecialHit,1);
+            powerupTime = 0;
 
         } // If player collides with enemy and does not have powerups, shoot it with little power
         else if (other.gameObject.CompareTag("Enemy") && !hasPowerUp)
@@ -91,24 +102,41 @@ public class PlayerController : MonoBehaviour
             Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
             Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
             EnemyRB.AddForce(AwayFromPlayer * 20,ForceMode.Impulse);
+            powerupTime = 0;
 
         }
     }
 
     // if powerup is activated then it deactivates after 7 seconds
-    IEnumerator PowerupCountdownRoutine(){
-        yield return new WaitForSeconds(7);
-        hasPowerUp = false;
-        PowerupIndicator.SetActive(false);
+    // IEnumerator PowerupCountdownRoutine(){
+    //     yield return new WaitForSeconds(7);
+    //     hasPowerUp = false;
+    //     PowerupIndicator.SetActive(false);
+    // }
+    void powerdown(){
+        if(powerupTime<=0){
+            hasPowerUp = false;
+            PowerupIndicator.SetActive(false);
+        }
     }
-    IEnumerator scaleup(){
-        yield return new WaitForSeconds(9);
-        transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-        PlayerRB.mass = 2;
-        speed = 15;
-        PowerupIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
-        hasPotion = false;
+    // IEnumerator scaleup(){
+    //     yield return new WaitForSeconds(9);
+    //     transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+    //     PlayerRB.mass = 2;
+    //     speed = 15;
+    //     PowerupIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
+    //     hasPotion = false;
 
+    // }
+
+    void scaledown(){
+        if(PotionTime <= 0){
+            transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+            PlayerRB.mass = 2;
+            speed = 15;
+            PowerupIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
+            hasPotion = false;
+        }
     }
 
 }

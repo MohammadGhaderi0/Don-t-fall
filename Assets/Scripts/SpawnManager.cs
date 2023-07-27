@@ -108,14 +108,14 @@ public class SpawnManager : MonoBehaviour
 
       void SpawnPowerUp()
     {
-        if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=4){
+        if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=2){
             Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
         }
     }
     void SpawnPotion(){
         int chance = Random.Range(1,1500);
         if( chance == 23){
-         Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
+            Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
         }
     }
 
