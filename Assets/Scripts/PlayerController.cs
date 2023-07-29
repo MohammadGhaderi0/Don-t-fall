@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 12;
+    private float speed = 11.3f;
     private Rigidbody PlayerRB;
     private GameObject FocalPoint;
     private bool hasPowerUp;
@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour
 
     // If player collides with enemy and has power up, shoot the enemy
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Enemy") && hasPowerUp){
-            Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
-            Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
+        Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
+        Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
+        if(other.gameObject.CompareTag("Enemy") && hasPowerUp){   
             EnemyRB.AddForce(AwayFromPlayer * strength,ForceMode.Impulse);
             PowerupIndicator.SetActive(false);
             hasPowerUp = false;
@@ -95,17 +95,15 @@ public class PlayerController : MonoBehaviour
         } // If player collides with enemy and does not have powerups, shoot it with little power
         else if (other.gameObject.CompareTag("Enemy") && !hasPowerUp)
         {
-            Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
-            Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
-            EnemyRB.AddForce(AwayFromPlayer * 1.7f,ForceMode.Impulse);
+            EnemyRB.AddForce(AwayFromPlayer * 1.3f,ForceMode.Impulse);
             audioSource.PlayOneShot(NormalHit,2);
         }
         else if(other.gameObject.CompareTag("Enemy") && hasPowerUp && hasPotion){
-            Rigidbody EnemyRB = other.gameObject.GetComponent<Rigidbody>();
-            Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
-            EnemyRB.AddForce(AwayFromPlayer * 20,ForceMode.Impulse);
+            EnemyRB.AddForce(AwayFromPlayer * 30,ForceMode.Impulse);
             powerupTime = 0;
-
+        }
+        else if(other.gameObject.CompareTag("Enemy") && !hasPowerUp && hasPotion){
+            EnemyRB.AddForce(AwayFromPlayer * 5,ForceMode.Impulse);
         }
     }
 

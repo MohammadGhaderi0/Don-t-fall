@@ -71,6 +71,12 @@ public class SpawnManager : MonoBehaviour
             int randomIndex = Random.Range(0, materials.Length);
             GameObject newObject = Instantiate(enemyPrefab,GenerateRandomPosition(),enemyPrefab.transform.rotation);
             newObject.GetComponent<MeshRenderer>().material = materials[randomIndex];
+            // It is 20% possible to spawn big enemy
+            if(Random.Range(0,2) ==1){
+                newObject.transform.localScale = new Vector3(3,3,3);
+                newObject.GetComponent<Rigidbody>().mass = 10;
+                
+            }
             
         }
     }

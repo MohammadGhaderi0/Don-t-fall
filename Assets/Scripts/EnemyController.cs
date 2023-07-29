@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 5;
+    private float speed = 4;
     private GameObject player;
     private Rigidbody enemyRB;
     // Start is called before the first frame update
@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        setSpeed();
         // If the player is in the island then go for it . if not go to the center of the island
         if(player.transform.position.y >-1){ 
             enemyRB.AddForce((player.transform.position - transform.position).normalized * speed);
@@ -30,5 +31,13 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
         
+    }
+    void setSpeed(){
+        if(transform.localScale == new Vector3(3,3,3)){
+            speed = 25;
+        }
+        else{
+            speed = 4;
+        }
     }
 }

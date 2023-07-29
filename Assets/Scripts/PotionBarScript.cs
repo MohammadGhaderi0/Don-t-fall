@@ -25,8 +25,6 @@ public class PotionBarScript : MonoBehaviour
            transform.localScale = Vector3.zero;
         }
 
-        Debug.Log(transform.localScale);
-
         }
         
         
