@@ -7,7 +7,7 @@ public class PowerBarScript : MonoBehaviour
 {
     public Slider slider;
     public PlayerController playerController;
-    public GameObject powerupUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,16 @@ public class PowerBarScript : MonoBehaviour
     {
         slider.value  = playerController.powerupTime;
         if(slider.value > 0.1f){
-            powerupUI.transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one;
         }
         else{
-           powerupUI.transform.localScale = Vector3.zero;
+           transform.localScale = Vector3.zero;
            
         }
-        
+
         
     }
+
+
+
 }

@@ -7,7 +7,7 @@ public class PotionBarScript : MonoBehaviour
 {
     public Slider Potion_slider;
     public PlayerController playercontroller;
-    public GameObject potionUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,16 @@ public class PotionBarScript : MonoBehaviour
     {
         Potion_slider.value  = playercontroller.PotionTime;
         if(Potion_slider.value > 0.1f){
-            potionUI.transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one;
         }
         else{
-           potionUI.transform.localScale = Vector3.zero;
-           
+           transform.localScale = Vector3.zero;
+        }
+
+        Debug.Log(transform.localScale);
+
         }
         
         
     }
-}
+
