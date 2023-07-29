@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 15;
+    private float speed = 12;
     private Rigidbody PlayerRB;
     private GameObject FocalPoint;
     private bool hasPowerUp;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         // updating the Transform of powerup ring 
         PowerupIndicator.transform.position = transform.position -new Vector3(0,0.45f,0);
 
-        
+
         if(hasPotion){
             PotionTime -= Time.deltaTime;
             scaledown();
@@ -67,14 +67,14 @@ public class PlayerController : MonoBehaviour
             if(!hasPotion){
                 transform.localScale *= 2.5f;
                 Destroy(other.gameObject);
-                PotionTime = 7;
+                PotionTime = 9;
                 PlayerRB.mass = 6;
                 speed = 35;
                 hasPotion = true;   
             }
             else{
                 Destroy(other.gameObject);
-                PotionTime = 7;
+                PotionTime = 9;
             }
             
         }

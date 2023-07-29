@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class bar : MonoBehaviour
+public class PowerBarScript : MonoBehaviour
 {
     public Slider slider;
-    private float PowerUp_time;
     public PlayerController playerController;
     public GameObject powerupUI;
     // Start is called before the first frame update
