@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,9 +16,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     private bool GameOver;
     private bool hasPotion;
-    private float PotionTime;
-    private float powerupTime;
-  
+    public float PotionTime;
+    public float powerupTime;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
         // updating the Transform of powerup ring 
         PowerupIndicator.transform.position = transform.position -new Vector3(0,0.45f,0);
+
+        
         if(hasPotion){
             PotionTime -= Time.deltaTime;
             scaledown();
