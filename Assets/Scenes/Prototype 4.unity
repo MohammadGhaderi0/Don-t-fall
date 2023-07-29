@@ -303,7 +303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 132242066}
   playerController: {fileID: 1223151548}
-  powerupUI: {fileID: 132242063}
 --- !u!1 &216296117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,7 +1665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c43bdfe4b160843851527505999853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 60
+  RotationSpeed: 70
 --- !u!4 &1542160141
 Transform:
   m_ObjectHideFlags: 0
@@ -1916,7 +1915,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Potion_slider: {fileID: 1690260640}
   playercontroller: {fileID: 1223151548}
-  potionUI: {fileID: 1690260635}
 --- !u!114 &1690260640
 MonoBehaviour:
   m_ObjectHideFlags: 0
