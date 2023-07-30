@@ -34,10 +34,10 @@ public class EnemyController : MonoBehaviour
     }
     void setSpeed(){
         if(transform.localScale == new Vector3(3,3,3)){
-            speed = 25;
+            speed = 20;
         }
         else{
-            speed = 4;
+            speed = 6;
         }
     }
 }

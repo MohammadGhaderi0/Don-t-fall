@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public TextMeshProUGUI pointsTXT;
+    public AudioSource audioSource;
 
 
     public void Setup(int score){
@@ -15,10 +16,12 @@ public class GameOver : MonoBehaviour
     }
 
     public void RestartBTN(){
+        audioSource.Play();
         SceneManager.LoadScene(1);
     }
 
     public void MainMenu(){
+        audioSource.Play();
         SceneManager.LoadScene(0);
     }
 

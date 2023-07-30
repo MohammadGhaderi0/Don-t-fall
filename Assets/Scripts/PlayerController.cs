@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     public SpawnManager SpawnManager;
     public GameOver GameOverScreen;
     private Rigidbody PlayerRB;
-    private float speed = 11.3f;
+    private float speed = 11.7f;
     public float PotionTime;
-    public float strength = 10;
+    public float strength = 22;
     public float powerupTime;
     private bool GameOver;
     private bool hasPowerUp;
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip NormalHit;
     public AudioClip SpecialHit;
+    public AudioClip potion_drink;
+    public AudioClip Powerup_sfx;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
     // If player collides with powerup, turns powerup feature ON
      private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("PowerUp")){
+            audioSource.PlayOneShot(Powerup_sfx,1);
             hasPowerUp = true;
             Destroy(other.gameObject);
             powerupTime = 7;
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
             }
         }    
         if(other.CompareTag("Potion")){
+            audioSource.PlayOneShot(potion_drink,1);
             if(hasPowerUp){
                 PowerupIndicator.transform.localScale  = new Vector3(8.58f,8.58f,8.58f);
             }
@@ -99,15 +103,15 @@ public class PlayerController : MonoBehaviour
         } // If player collides with enemy and does not have powerups, shoot it with little power
         else if (other.gameObject.CompareTag("Enemy") && !hasPowerUp)
         {
-            EnemyRB.AddForce(AwayFromPlayer * 1.3f,ForceMode.Impulse);
+            EnemyRB.AddForce(AwayFromPlayer * 1.8f,ForceMode.Impulse);
             audioSource.PlayOneShot(NormalHit,2);
         }
         else if(other.gameObject.CompareTag("Enemy") && hasPowerUp && hasPotion){
-            EnemyRB.AddForce(AwayFromPlayer * 30,ForceMode.Impulse);
+            EnemyRB.AddForce(AwayFromPlayer * 150,ForceMode.Impulse);
             powerupTime = 0;
         }
         else if(other.gameObject.CompareTag("Enemy") && !hasPowerUp && hasPotion){
-            EnemyRB.AddForce(AwayFromPlayer * 5,ForceMode.Impulse);
+            EnemyRB.AddForce(AwayFromPlayer * 15,ForceMode.Impulse);
         }
     }
 
@@ -145,8 +149,8 @@ public class PlayerController : MonoBehaviour
 
     public void Gameover(){
         if(transform.position.y <= -10){
-           GameOverScreen.Setup(SpawnManager.WaveNumber);
-           SpawnManager.waveText.text = "";
+            GameOverScreen.Setup(SpawnManager.WaveNumber);
+            SpawnManager.waveText.text = "";
            
            } 
         }
