@@ -5,23 +5,23 @@ using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public float SpawnRange = 9;
-    private int WaveNumber = 1;
-    private int EnemyCount;
     public GameObject PowerupPrefab;
-
-
+    public GameObject enemyPrefab;
+    public GameObject PotionPrefab;
+    public float SpawnRange = 9;
     public float spawnInterval = 6f;
     public float minDistance = 4f;
-    
     private float spawnTimer = 0f;
+    public int WaveNumber = 1;
+    private int EnemyCount;
     public AudioSource audioSource;
     public AudioClip NewWave;
-
     public TMP_Text waveText;
     public Material[] materials;
-    public GameObject PotionPrefab;
+
+
+    
+
     void Start()
     {
         // starting the first wave for the first time
@@ -124,5 +124,6 @@ public class SpawnManager : MonoBehaviour
             Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
         }
     }
+
 
 }

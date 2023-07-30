@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
             enemyRB.AddForce((player.transform.position - transform.position).normalized * speed);
         }
         else{
-            enemyRB.AddForce((new Vector3(0,0,0) - transform.position).normalized * speed);
+            enemyRB.AddForce((new Vector3(Random.Range(0,3),0,Random.Range(0,3)) - transform.position).normalized * speed);
         }
 
         // If enemy falls then dies.

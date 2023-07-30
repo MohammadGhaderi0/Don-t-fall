@@ -5,19 +5,21 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 11.3f;
-    private Rigidbody PlayerRB;
     private GameObject FocalPoint;
-    private bool hasPowerUp;
-    public float strength = 10;
     public GameObject PowerupIndicator;
+    public SpawnManager SpawnManager;
+    public GameOver GameOverScreen;
+    private Rigidbody PlayerRB;
+    private float speed = 11.3f;
+    public float PotionTime;
+    public float strength = 10;
+    public float powerupTime;
+    private bool GameOver;
+    private bool hasPowerUp;
+    private bool hasPotion;
+    public AudioSource audioSource;
     public AudioClip NormalHit;
     public AudioClip SpecialHit;
-    public AudioSource audioSource;
-    private bool GameOver;
-    private bool hasPotion;
-    public float PotionTime;
-    public float powerupTime;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
             powerupTime -= Time.deltaTime;
             powerdown();
         }
+
+        Gameover();
         
     }
 
@@ -139,4 +143,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-}
+    public void Gameover(){
+        if(transform.position.y <= -10){
+           GameOverScreen.Setup(SpawnManager.WaveNumber);
+           SpawnManager.waveText.text = "";
+           
+           } 
+        }
+    }
+
+
