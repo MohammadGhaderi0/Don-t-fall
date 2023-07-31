@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody PlayerRB;
     private float speed = 11.7f;
     public float PotionTime;
-    public float strength = 22;
+    public float strength = 26;
     public float powerupTime;
     private bool GameOver;
     private bool hasPowerUp;
@@ -107,11 +107,11 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(NormalHit,2);
         }
         else if(other.gameObject.CompareTag("Enemy") && hasPowerUp && hasPotion){
-            EnemyRB.AddForce(AwayFromPlayer * 150,ForceMode.Impulse);
+            EnemyRB.AddForce((AwayFromPlayer - new Vector3(0,1,0)) * 2500,ForceMode.Impulse);
             powerupTime = 0;
         }
         else if(other.gameObject.CompareTag("Enemy") && !hasPowerUp && hasPotion){
-            EnemyRB.AddForce(AwayFromPlayer * 15,ForceMode.Impulse);
+            EnemyRB.AddForce((AwayFromPlayer - new Vector3(0,1,0)) * 30,ForceMode.Impulse);
         }
     }
 
