@@ -6,7 +6,7 @@ Don't Fall is a 3D game where you control a ball and must avoid falling off the 
 ![Screenshot (308)](https://github.com/MohammadGhaderi0/Don-t-fall/assets/107918334/78d51cd1-3df4-4020-b7b9-88496ec5bed0)
 <br>
 # Try the Game
-You can play the game from this [link](https://codilla.ir/don-t-fall/).
+You can play the game from this [link](https://codilla.ir/don-t-fall/).(⚠️ Don't try with phone or tablet )
 <br>
 # Getting started
 1. Download and extract the zip file.
