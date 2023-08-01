@@ -7,3 +7,7 @@ Don't Fall is a 3D game where you control a ball and must avoid falling off the 
 <br>
 # Try the Game
 You can play the game from this [link](https://codilla.ir/don-t-fall/).
+<br>
+# Getting started
+1. Download and extract the zip file.
+2. open the project with Unity editor(unity 2020 or higher).
