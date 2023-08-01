@@ -15,3 +15,5 @@ You can play the game from this [link](https://codilla.ir/don-t-fall/).(⚠️ D
   powerbar sprite: https://github.com/Brackeys/Health-Bar7<br>
   Balls, powerbar,potion and island : https://learn.unity.com<br>
   sound effects : https://pixabay.com/sound-effects/
+ # Technologies Used
+  Made by unity 2022.3.5f1
