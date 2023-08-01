@@ -12,3 +12,6 @@ You can play the game from this [link](https://codilla.ir/don-t-fall/).
 1. Download and extract the zip file.
 2. open the project with Unity editor(unity 2020 or higher).
 # Refrences
+  powerbar sprite: https://github.com/Brackeys/Health-Bar7<br>
+  Balls, powerbar,potion and island : https://learn.unity.com<br>
+  sound effects : https://pixabay.com/sound-effects/
