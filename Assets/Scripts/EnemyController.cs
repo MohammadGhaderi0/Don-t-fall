@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         SetSpeed();
-        SetDirection();
+        // SetDirection();
         CheckDying();
     }
 
