@@ -6,24 +6,31 @@ using TMPro;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject PowerupPrefab;
-    public GameObject enemyPrefab;
+    public GameObject smallEnemyPrefab;
+    public GameObject bigEnemyPrefab;
     public GameObject PotionPrefab;
     public float SpawnRange = 9;
-    public float spawnInterval = 6f;
+    private const int spawnInterval_powerUp = 6;
+    private const int spawnInterval_potion = 7;
     public float minDistance = 4f;
-    private float spawnTimer = 0f;
+    private float powerUpSpawnTimer;
+    private float potionSpawnTimer;
     public int WaveNumber = 1;
     private int EnemyCount;
     public AudioSource audioSource;
     public AudioClip NewWave;
     public TMP_Text waveText;
     public Material[] materials;
+    private int powerUpRandom;
+    private int potionRandom;
 
 
     
 
     void Start()
     {
+        powerUpRandom = Random.Range(0, 6);
+        potionRandom = Random.Range(2, 8);
         // starting the first wave for the first time
         waveText.text = "Wave  " + WaveNumber;
         SpawnEnemyWave(WaveNumber);
@@ -32,25 +39,13 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If number of enemies become zero, then the new wave should be started
-        EnemyCount = FindObjectsOfType<EnemyController>().Length;
-        if(EnemyCount ==0){
-            audioSource.PlayOneShot(NewWave,0.4f);
-            WaveNumber ++;
-            waveText.text = "Wave  " + WaveNumber;
-            SpawnEnemyWave(WaveNumber);
-            // StartCoroutine(SpawnPowerup());
+        EnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if(EnemyCount == 0)                     // If number of enemies become zero, 
+        {                                       // then the new wave should be started
+            StartNewWave();
         }
-
-
-        // every 6 seconds the new powerup spawns
-        spawnTimer += Time.deltaTime;     
-        if (spawnTimer >= spawnInterval)
-        {
-            SpawnPowerUp();
-            spawnTimer = 0f;
-        }
-
+        
+        SpawnPowerUp();
         SpawnPotion();
     }
 
@@ -69,10 +64,10 @@ public class SpawnManager : MonoBehaviour
     void SpawnEnemyWave(int enemiesToSpawn){
         for (int i = 0; i < enemiesToSpawn; i++){
             int randomIndex = Random.Range(0, materials.Length);
-            GameObject newObject = Instantiate(enemyPrefab,GenerateRandomPosition(),enemyPrefab.transform.rotation);
+            GameObject newObject = Instantiate(smallEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
             newObject.GetComponent<MeshRenderer>().material = materials[randomIndex];
-            // It is 33% possible to spawn big enemy
-            if(Random.Range(0,3) ==1){
+            
+            if(Random.Range(0,3) ==1){                  // It is 33% possible to spawn big enemy
                 newObject.transform.localScale = new Vector3(3,3,3);
                 newObject.GetComponent<Rigidbody>().mass = 6;
                 
@@ -114,15 +109,33 @@ public class SpawnManager : MonoBehaviour
 
       void SpawnPowerUp()
     {
-        if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=2){
-            Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+        powerUpSpawnTimer += Time.deltaTime;     
+        if (powerUpSpawnTimer >= spawnInterval_powerUp + powerUpRandom)
+        {
+            if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=2){
+                Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+            }
+            powerUpSpawnTimer = 0f;
+            powerUpRandom = Random.Range(0, 6);
+
         }
     }
     void SpawnPotion(){
-        int chance = Random.Range(1,1500);
-        if( chance == 23){
+        if (potionSpawnTimer >= spawnInterval_potion + potionRandom)
+        {
             Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
         }
+        potionSpawnTimer = 0;
+        powerUpRandom = Random.Range(2, 8);
+
+    }
+
+    void StartNewWave()
+    {
+        audioSource.PlayOneShot(NewWave,0.4f);
+        WaveNumber ++;
+        waveText.text = "Wave  " + WaveNumber;
+        SpawnEnemyWave(WaveNumber);
     }
 
 

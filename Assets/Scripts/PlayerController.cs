@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,32 +51,43 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
     // If player collides with enemy and has power up, shoot the enemy
-    private void OnCollisionEnter(Collision other) 
+    private void OnCollisionEnter(Collision other)
     {
-        Rigidbody enemyRB = other.gameObject.GetComponent<Rigidbody>();
-        Vector3 AwayFromPlayer = other.gameObject.transform.position - transform.position;
-        if(other.gameObject.CompareTag("Enemy") && hasPowerUp)
-        { 
-            enemyRB.AddForce(AwayFromPlayer * strength,ForceMode.Impulse);
-            audioSource.PlayOneShot(SpecialHit,1);
-            powerupTime = 0;
-        } 
-        // If player collides with enemy and does not have powerups, shoot it with little power
-        else if (other.gameObject.CompareTag("Enemy") && !hasPowerUp)
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            enemyRB.AddForce(AwayFromPlayer * 1.8f,ForceMode.Impulse);
-            audioSource.PlayOneShot(NormalHit,2);
-        }
-        else if(other.gameObject.CompareTag("Enemy") && hasPowerUp && hasPotion){
-            enemyRB.AddForce((AwayFromPlayer - new Vector3(0,1,0)) * 2500,ForceMode.Impulse);
-            audioSource.PlayOneShot(SpecialHit,1);
-            powerupTime = 0;
-        }
-        else if(other.gameObject.CompareTag("Enemy") && !hasPowerUp && hasPotion){
-            enemyRB.AddForce((AwayFromPlayer - new Vector3(0,1,0)) * 30,ForceMode.Impulse);
+            Rigidbody enemyRB = other.gameObject.GetComponent<Rigidbody>();
+            Vector3 awayFromPlayer = other.gameObject.transform.position - transform.position;
+
+            if (hasPowerUp)
+            {
+                if (hasPotion)
+                {
+                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 2500, ForceMode.Impulse);
+                }
+                else
+                {
+                    enemyRB.AddForce(awayFromPlayer * strength, ForceMode.Impulse);
+                }
+                audioSource.PlayOneShot(SpecialHit, 1);
+                powerupTime = 0;
+            }
+            else
+            {
+                if (hasPotion)
+                {
+                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 30, ForceMode.Impulse);
+                }
+                else
+                {
+                    enemyRB.AddForce(awayFromPlayer * 1.8f, ForceMode.Impulse);
+                    audioSource.PlayOneShot(NormalHit, 2);
+                }
+            }
         }
     }
+
 
     void TurnOffPowerUpEffect()
     {
@@ -95,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if(transform.position.y <= -10){
             GameOverScreen.ShowGameInfo(spawnManager.WaveNumber);
-            spawnManager.waveText.text = "";
+            spawnManager.waveText.text = "";                      // hiding the ""wave x"" text when player dies
         } 
     }
 

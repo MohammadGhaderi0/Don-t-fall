@@ -336,10 +336,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerupPrefab: {fileID: 4185661828540701465, guid: 960b16e03aa9620478b7fee8ad786618, type: 3}
-  enemyPrefab: {fileID: 4832065832176436099, guid: e2a3c363e0d22e741b871d714840d84d, type: 3}
+  smallEnemyPrefab: {fileID: 4832065832176436099, guid: e2a3c363e0d22e741b871d714840d84d, type: 3}
+  bigEnemyPrefab: {fileID: 4832065832176436099, guid: 9241b86221b9a77498dae14e991d07fd, type: 3}
   PotionPrefab: {fileID: 2907620968257007431, guid: 5c8b9086eed73ba4ca1554b497da0add, type: 3}
   SpawnRange: 9
-  spawnInterval: 5
   minDistance: 5
   WaveNumber: 1
   audioSource: {fileID: 216296120}
