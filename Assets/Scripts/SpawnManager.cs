@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -19,7 +18,7 @@ public class SpawnManager : MonoBehaviour
     
     private const int spawnInterval_potion = 7;
     
-    public float minDistance = 4f;
+    public float minDistance = 2f;
     
     private float powerUpSpawnTimer;
     
@@ -41,13 +40,18 @@ public class SpawnManager : MonoBehaviour
     
     private int potionRandom;
 
+    private int numberOfPotions;
+
+    private int numberOfPowerUps;
+
+    public List<GameObject> inGroundObjects;
 
     
 
     void Start()
     {
         powerUpRandom = Random.Range(0, 6);
-        potionRandom = Random.Range(2, 8);
+        potionRandom = Random.Range(0, 6);
         // starting the first wave for the first time
         waveText.text = "Wave  " + WaveNumber;
         SpawnEnemyWave(WaveNumber);
@@ -64,6 +68,7 @@ public class SpawnManager : MonoBehaviour
         
         SpawnPowerUp();
         SpawnPotion();
+        
     }
 
 
@@ -106,23 +111,21 @@ public class SpawnManager : MonoBehaviour
       // Generate random positions for powerups(they should not be next to each other) 
     Vector3 GenerateRandomPositions()
     {
-        GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
         Vector3 position;
-        
         do
         {
             position = new Vector3(Random.Range(-9, 9), 0.2f, Random.Range(-9, 9));
         }
-        while (!IsPositionValid(position, powerUps));
+        while (!IsPositionValid(position));
 
         return position;
     }
     
-      bool IsPositionValid(Vector3 position, GameObject[] powerUps)
+      bool IsPositionValid(Vector3 position)
     {
-        foreach (GameObject powerUp in powerUps)
+        foreach (GameObject ability in inGroundObjects)
         {
-            if (Vector3.Distance(position, powerUp.transform.position) < minDistance)
+            if (Vector3.Distance(position, ability.transform.position) < minDistance)
                 return false;
         }
         
@@ -137,8 +140,12 @@ public class SpawnManager : MonoBehaviour
         powerUpSpawnTimer += Time.deltaTime;     
         if (powerUpSpawnTimer >= spawnInterval_powerUp + powerUpRandom)
         {
-            if(GameObject.FindGameObjectsWithTag("PowerUp").Length <=2){
-                Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+            if(numberOfPowerUps<=2){
+ 
+                GameObject newObj = Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+                numberOfPowerUps++;
+                inGroundObjects.Add(newObj);
+                
             }
             powerUpSpawnTimer = 0f;
             powerUpRandom = Random.Range(0, 6);
@@ -146,12 +153,20 @@ public class SpawnManager : MonoBehaviour
         }
     }
     void SpawnPotion(){
+        potionSpawnTimer += Time.deltaTime;     
         if (potionSpawnTimer >= spawnInterval_potion + potionRandom)
         {
-            Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
+            if (numberOfPotions <=2)
+            {
+                GameObject newObj = Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
+                numberOfPotions++;
+                inGroundObjects.Add(newObj);
+
+            } 
+            potionSpawnTimer = 0;   
+            powerUpRandom = Random.Range(2, 8);
+       
         }
-        potionSpawnTimer = 0;
-        powerUpRandom = Random.Range(2, 8);
 
     }
 
@@ -162,6 +177,8 @@ public class SpawnManager : MonoBehaviour
         waveText.text = "Wave  " + WaveNumber;
         SpawnEnemyWave(WaveNumber);
     }
+
+    
 
 
 }

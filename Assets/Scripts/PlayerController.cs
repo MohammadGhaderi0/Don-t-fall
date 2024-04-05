@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,13 +45,18 @@ public class PlayerController : MonoBehaviour
     }
 
     // If player collides with powerups or potions,it turns the abilities on
-     private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("PowerUp")){
+     private void OnTriggerEnter(Collider other)
+     {
+        if(other.CompareTag("PowerUp"))
+        {
+            spawnManager.inGroundObjects.Remove(other.gameObject);
             Destroy(other.gameObject);
             TurnOnPowerUpEffect();
         }    
         else if(other.CompareTag("Potion"))
         {
+
+            spawnManager.inGroundObjects.Remove(other.gameObject);
             Destroy(other.gameObject);
             TurnOnPotionEffect();
             
