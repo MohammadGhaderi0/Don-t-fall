@@ -1,23 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public GameObject FocalPoint, powerUpIndicator;
+    
     public SpawnManager spawnManager;
+    
     public GameOver GameOverScreen;
+    
     private Rigidbody PlayerRB;
-    private float speed = 11.7f;
+    
+    // private float speed = 11.7f;
+    
     public float strength = 26;
+    
     public float potionTime, powerupTime;
+    
     public bool gameOver, hasPowerUp,hasPotion;
+    
     public AudioSource audioSource;
+    
     public AudioClip NormalHit, SpecialHit, potion_drink, Powerup_sfx;
+
+    public InputHandler input;
+    
 
 
     void Start()          // Start is called before the first frame update
@@ -29,7 +36,6 @@ public class PlayerController : MonoBehaviour
     
     void Update()       // Update is called once per frame
     {
-        HandleInput();
         PotionEffectUpdate();
         PowerUpUpdate();
         Gameover();
@@ -99,7 +105,7 @@ public class PlayerController : MonoBehaviour
     {
         transform.localScale = new Vector3(1.5f,1.5f,1.5f);
         PlayerRB.mass = 2;
-        speed = 15;
+        input.speed = 15;
         powerUpIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
         hasPotion = false;
         
@@ -113,11 +119,6 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
-    void HandleInput()
-    {
-        float forwardInput = Input.GetAxis("Vertical");
-        PlayerRB.AddForce(FocalPoint.transform.forward * (speed * forwardInput));
-    }
 
     private void PotionEffectUpdate()
     {
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale *= 2.5f;
             potionTime = 9;
             PlayerRB.mass = 6;
-            speed = 35;
+            input.speed = 35;
             hasPotion = true;   
         }
         else
