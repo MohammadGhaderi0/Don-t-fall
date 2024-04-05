@@ -6,22 +6,39 @@ using TMPro;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject PowerupPrefab;
+    
     public GameObject smallEnemyPrefab;
+    
     public GameObject bigEnemyPrefab;
+    
     public GameObject PotionPrefab;
+    
     public float SpawnRange = 9;
+    
     private const int spawnInterval_powerUp = 6;
+    
     private const int spawnInterval_potion = 7;
+    
     public float minDistance = 4f;
+    
     private float powerUpSpawnTimer;
+    
     private float potionSpawnTimer;
+    
     public int WaveNumber = 1;
+    
     private int EnemyCount;
+    
     public AudioSource audioSource;
+    
     public AudioClip NewWave;
+    
     public TMP_Text waveText;
+    
     public Material[] materials;
+    
     private int powerUpRandom;
+    
     private int potionRandom;
 
 
@@ -60,22 +77,30 @@ public class SpawnManager : MonoBehaviour
 
 
 
-    // Creates enemies with different skins
+    // Creates enemies with different skins and sizes
     void SpawnEnemyWave(int enemiesToSpawn){
         for (int i = 0; i < enemiesToSpawn; i++){
-            int randomIndex = Random.Range(0, materials.Length);
-            GameObject newObject = Instantiate(smallEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
-            newObject.GetComponent<MeshRenderer>().material = materials[randomIndex];
-            
-            if(Random.Range(0,3) ==1){                  // It is 33% possible to spawn big enemy
-                newObject.transform.localScale = new Vector3(3,3,3);
-                newObject.GetComponent<Rigidbody>().mass = 6;
-                
+            Material randomMaterial = GetRandomMaterial();
+            GameObject newBall;
+            if(Random.Range(0,3) ==1)           // // It is 33% possible to spawn big enemy
+            { 
+                newBall = Instantiate(bigEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
+                newBall.transform.localScale = new Vector3(3,3,3);
+                newBall.GetComponent<Rigidbody>().mass = 6;
             }
+            else
+            { 
+                newBall = Instantiate(smallEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
+            }
+            newBall.GetComponent<MeshRenderer>().material = randomMaterial;
             
         }
     }
   
+    Material GetRandomMaterial() {
+        int randomIndex = Random.Range(0, materials.Length);
+        return materials[randomIndex];
+    }
 
 
       // Generate random positions for powerups(they should not be next to each other) 

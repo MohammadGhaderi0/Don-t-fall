@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody PlayerRB;
     
-    // private float speed = 11.7f;
-    
     public float strength = 26;
     
     public float potionTime, powerupTime;
@@ -24,11 +22,16 @@ public class PlayerController : MonoBehaviour
     public AudioClip NormalHit, SpecialHit, potion_drink, Powerup_sfx;
 
     public InputHandler input;
+
+    public int powerUpChargeTime;
     
+    public int potionChargeTime;
 
 
     void Start()          // Start is called before the first frame update
-    { 
+    {
+        powerUpChargeTime = 7;
+        potionChargeTime = 7;
         audioSource = GetComponent<AudioSource>();
         PlayerRB = GetComponent<Rigidbody>();
     }
@@ -42,7 +45,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    // If player collides with powerup, turns powerup feature ON
+    // If player collides with powerups or potions,it turns the abilities on
      private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("PowerUp")){
             Destroy(other.gameObject);
@@ -101,10 +104,10 @@ public class PlayerController : MonoBehaviour
         powerUpIndicator.SetActive(false);
     }
 
-    void TurnOffPotionEffects()
+    void TurnOffPotionEffects()             // changing the size and mass to the original
     {
         transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-        PlayerRB.mass = 2;
+        PlayerRB.mass = 2;                                      
         input.speed = 15;
         powerUpIndicator.transform.localScale = new Vector3(3.3f,3.3f,3.3f);
         hasPotion = false;
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     private void Gameover()
     {
-        if(transform.position.y <= -10){
+        if(transform.position.y <= -10){                          // when player falls
             GameOverScreen.ShowGameInfo(spawnManager.WaveNumber);
             spawnManager.waveText.text = "";                      // hiding the ""wave x"" text when player dies
         } 
@@ -136,7 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         if(hasPowerUp)
         {
-            powerUpIndicator.transform.position = transform.position -new Vector3(0,0.45f,0);         // updating the Transform of powerup ring 
+            powerUpIndicator.transform.position = transform.position -new Vector3(0,0.45f,0);         // updating the location of powerup ring 
             powerupTime -= Time.deltaTime;
             if (powerupTime <= 0)
             {
@@ -149,9 +152,17 @@ public class PlayerController : MonoBehaviour
     private void TurnOnPowerUpEffect()
     {
         audioSource.PlayOneShot(Powerup_sfx,1);
-        hasPowerUp = true;
-        powerupTime = 7;
-        powerUpIndicator.SetActive(true);
+        if (hasPowerUp)
+        {
+            powerupTime = powerUpChargeTime;
+        }
+        else
+        {
+            hasPowerUp = true;
+            powerupTime = powerUpChargeTime;
+            powerUpIndicator.SetActive(true);
+
+        }
         if(hasPotion){
             powerUpIndicator.transform.localScale = new Vector3(8.58f,8.58f,8.58f);
         }
@@ -159,22 +170,23 @@ public class PlayerController : MonoBehaviour
 
     private void TurnOnPotionEffect()
     {
+        
         audioSource.PlayOneShot(potion_drink,1);
-        if(hasPowerUp)
+        if(hasPowerUp)                                       // if the player have powerups , the ring size should be different
         {
             powerUpIndicator.transform.localScale  = new Vector3(8.58f,8.58f,8.58f);
         }
         if(!hasPotion)
         {
             transform.localScale *= 2.5f;
-            potionTime = 9;
+            potionTime = potionChargeTime;
             PlayerRB.mass = 6;
             input.speed = 35;
             hasPotion = true;   
         }
         else
         {
-            potionTime = 9;
+            potionTime = potionChargeTime;
         }
     }
 }
