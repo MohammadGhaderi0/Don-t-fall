@@ -123,8 +123,9 @@ public class PlayerController : MonoBehaviour
         if(transform.position.y < -10)
         {
             transform.position = new Vector3(transform.position.x, -5, transform.position.z);    // freezing position is used to stop the ball going down forever
-            PlayerRB.constraints = RigidbodyConstraints.FreezePosition;                            // which may cause errors and setting the y position to -5 to stop
-            audioSource.Play();                                                                    // this loop running because it is unnecessary;
+            PlayerRB.constraints = RigidbodyConstraints.FreezePosition;                            // which may cause errors and setting the y position to -5 to stop this loop running because it is unnecessary;
+            // audioSource.Play();                                   
+            BaseSoundController.Instance.PlaySoundByIndex(7,new Vector3(0,0,0));
             GameOverScreen.ShowGameInfo(spawnManager.WaveNumber);    
             spawnManager.waveText.text = "";                      // hiding the ""wave x"" text when player dies
         } 

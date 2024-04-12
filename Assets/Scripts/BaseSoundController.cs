@@ -2,6 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class SoundObject
+{
+    public AudioSource source;
+    public GameObject sourceGO;
+    public Transform sourceTR;
+    public AudioClip clip;
+    public string name;
+
+    public SoundObject(AudioClip aClip, string aName, float aVolume)
+    {
+
+        // in this (the constructor) we create a new audio source
+// and store the details of the sound itself
+
+        sourceGO = new GameObject("AudioSource_" + aName);
+        sourceTR = sourceGO.transform;
+        source = sourceGO.AddComponent<AudioSource>();
+        source.name = "AudioSource_" + aName;
+        source.playOnAwake = false;
+        source.clip = aClip;
+        source.volume = aVolume;
+        clip = aClip;
+        name = aName;
+    }
+
+    public void PlaySound(Vector3 atPosition)
+    {
+        sourceTR.position = atPosition;
+        source.PlayOneShot(clip);
+    }
+}
+
 public class BaseSoundController : MonoBehaviour
 {
     public static BaseSoundController Instance;
@@ -17,7 +49,7 @@ public class BaseSoundController : MonoBehaviour
     void Start ()
     { 
         // we will grab the volume from PlayerPrefs when this script first starts
-        volume= PlayerPrefs.GetFloat("_SFXVol");
+        // volume= PlayerPrefs.GetFloat("_SFXVol");
 		
         Debug.Log ("BaseSoundController gets volume from prefs"+"_SFXVol at "+volume);
         soundObjectList=new ArrayList();
@@ -27,8 +59,7 @@ public class BaseSoundController : MonoBehaviour
         foreach(AudioClip theSound in GameSounds)
         {
             
-            tempSoundObj= new SoundObject(theSound,
-                theSound.name, volume);
+            tempSoundObj= new SoundObject(theSound,theSound.name, volume);
             soundObjectList.Add(tempSoundObj);
             totalSounds++;
         }
@@ -43,6 +74,15 @@ public class BaseSoundController : MonoBehaviour
         }
 		
         tempSoundObj= (SoundObject)soundObjectList[anIndexNumber];
+        // tempSoundObj.source.volume = 0;
         tempSoundObj.PlaySound(aPosition);
+    }
+
+    public void SetVolume(float givenVolume)
+    {
+        foreach (SoundObject sfx in soundObjectList)
+        {
+            sfx.source.volume = givenVolume;
+        }
     }
 }
