@@ -17,6 +17,14 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
+        if (PlayerPrefs.HasKey("sensitivity"))
+        {
+            RotationSpeed = 40 + PlayerPrefs.GetFloat("sensitivity");
+        }
+        else
+        {
+            RotationSpeed = 90; 
+        }
     }
 
     // Update is called once per frame

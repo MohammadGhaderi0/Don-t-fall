@@ -41,7 +41,7 @@ public class BaseSoundController : MonoBehaviour
     private int totalSounds;
     private ArrayList soundObjectList;
     private SoundObject tempSoundObj;
-    public float volume= 1;
+    public float volume;
     public void Awake()
     {
         Instance= this;
@@ -49,9 +49,10 @@ public class BaseSoundController : MonoBehaviour
     void Start ()
     { 
         // we will grab the volume from PlayerPrefs when this script first starts
-        // volume= PlayerPrefs.GetFloat("_SFXVol");
-		
+        volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.7f;
+        
         Debug.Log ("BaseSoundController gets volume from prefs"+"_SFXVol at "+volume);
+        
         soundObjectList=new ArrayList();
 		
         // make sound objects for all of the sounds in GameSounds array
