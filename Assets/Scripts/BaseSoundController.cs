@@ -1,6 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+//Each AudioClip in the array will have its own AudioSource and GameObject
+//instantiated when the BaseSoundController.cs script first runs. Think of each sound as hav-
+//ing its own audio channel to avoid overlaps or too many different sounds playing on a single
+//AudioSource. Internally, a class called SoundObject is used to store information about the
+//audio sources and their gameObjects. When the main sound controller script needs to access
+//each one, the references in SoundObject are used to avoid having to repeatedly look for them.
+
 
 public class SoundObject
 {
@@ -14,7 +21,7 @@ public class SoundObject
     {
 
         // in this (the constructor) we create a new audio source
-// and store the details of the sound itself
+        // and store the details of the sound itself
 
         sourceGO = new GameObject("AudioSource_" + aName);
         sourceTR = sourceGO.transform;
@@ -48,14 +55,8 @@ public class BaseSoundController : MonoBehaviour
     }
     void Start ()
     { 
-        // we will grab the volume from PlayerPrefs when this script first starts
-        volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.7f;
-        
-        Debug.Log ("BaseSoundController gets volume from prefs"+"_SFXVol at "+volume);
-        
-        soundObjectList=new ArrayList();
-		
-        // make sound objects for all of the sounds in GameSounds array
+        volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.7f;        //  the volume is grabbed from PlayerPrefs when this script first starts
+        soundObjectList=new ArrayList();                                                          // make sound objects for all of the sounds in GameSounds array
 		
         foreach(AudioClip theSound in GameSounds)
         {
@@ -68,14 +69,13 @@ public class BaseSoundController : MonoBehaviour
     public void PlaySoundByIndex(int anIndexNumber, Vector3 aPosition)
     {
         // make sure we're not trying to play a sound indexed higher than exists in the array
-        if(anIndexNumber>soundObjectList.Count)
+        if(anIndexNumber > soundObjectList.Count)
         {
             Debug.LogWarning("BaseSoundController>Trying to do PlaySoundByIndex with invalid index number. Playing last sound in array, instead.");
             anIndexNumber= soundObjectList.Count-1;
         }
 		
         tempSoundObj= (SoundObject)soundObjectList[anIndexNumber];
-        // tempSoundObj.source.volume = 0;
         tempSoundObj.PlaySound(aPosition);
     }
 

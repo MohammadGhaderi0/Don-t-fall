@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,7 +26,16 @@ public class Pause : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(hell());
+    }
+
+    IEnumerator hell()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log(PlayerPrefs.GetFloat("sensitivity"));
+        }
     }
 
     // Update is called once per frame

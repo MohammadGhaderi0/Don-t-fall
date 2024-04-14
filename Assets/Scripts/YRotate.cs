@@ -7,7 +7,6 @@ public class YRotate : MonoBehaviour
     [Range(1,10)]
     public int speed;
 
-    // Update is called once per frame
     void Update()
     {
         Yangle = (Yangle + speed) % 360; // Increment the rotation angle around the y-axis
