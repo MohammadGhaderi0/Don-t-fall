@@ -4,13 +4,7 @@ using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject PowerupPrefab;
-    
-    public GameObject smallEnemyPrefab;
-    
-    public GameObject bigEnemyPrefab;
-    
-    public GameObject PotionPrefab;
+    public GameObject PowerupPrefab, smallEnemyPrefab, bigEnemyPrefab, PotionPrefab, player;
     
     public float SpawnRange = 9;
     
@@ -28,10 +22,6 @@ public class SpawnManager : MonoBehaviour
     
     private int EnemyCount;
     
-    public AudioSource audioSource;
-    
-    public AudioClip NewWave;
-    
     public TMP_Text waveText;
     
     public Material[] materials;
@@ -45,7 +35,7 @@ public class SpawnManager : MonoBehaviour
     private int numberOfPowerUps;
 
     public List<GameObject> inGroundObjects;
-
+    
     
 
     void Start()
@@ -172,7 +162,7 @@ public class SpawnManager : MonoBehaviour
 
     void StartNewWave()
     {
-        audioSource.PlayOneShot(NewWave,0.4f);
+        BaseSoundController.Instance.PlaySoundByIndex(6,player.transform.position);
         WaveNumber ++;
         waveText.text = "Wave  " + WaveNumber;
         SpawnEnemyWave(WaveNumber);

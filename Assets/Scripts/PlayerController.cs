@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject FocalPoint, powerUpIndicator;
+    public GameObject powerUpIndicator;
     
     public SpawnManager spawnManager;
     
@@ -16,10 +16,6 @@ public class PlayerController : MonoBehaviour
     
     public bool gameOver, hasPowerUp,hasPotion;
     
-    public AudioSource audioSource;
-    
-    public AudioClip NormalHit, SpecialHit, potion_drink, Powerup_sfx;
-
     public InputHandler input;
 
     public int powerUpChargeTime;
@@ -31,7 +27,6 @@ public class PlayerController : MonoBehaviour
     {
         powerUpChargeTime = 7;
         potionChargeTime = 9;
-        audioSource = GetComponent<AudioSource>();
         PlayerRB = GetComponent<Rigidbody>();
     }
 
@@ -83,7 +78,7 @@ public class PlayerController : MonoBehaviour
                 {
                     enemyRB.AddForce(awayFromPlayer * strength, ForceMode.Impulse);
                 }
-                audioSource.PlayOneShot(SpecialHit, 1);
+                BaseSoundController.Instance.PlaySoundByIndex(3,transform.position);
                 powerupTime = 0;
             }
             else
@@ -95,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     enemyRB.AddForce(awayFromPlayer * 1.8f, ForceMode.Impulse);
-                    audioSource.PlayOneShot(NormalHit, 2);
+                    BaseSoundController.Instance.PlaySoundByIndex(2,transform.position);
                 }
             }
         }
@@ -160,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
     private void TurnOnPowerUpEffect()
     {
-        audioSource.PlayOneShot(Powerup_sfx,1);
+        BaseSoundController.Instance.PlaySoundByIndex(5,transform.position);
         if (hasPowerUp)
         {
             powerupTime = powerUpChargeTime;
@@ -180,7 +175,7 @@ public class PlayerController : MonoBehaviour
     private void TurnOnPotionEffect()
     {
         
-        audioSource.PlayOneShot(potion_drink,1);
+        BaseSoundController.Instance.PlaySoundByIndex(4,transform.position);
         if(hasPowerUp)                                       // if the player have powerups , the ring size should be different
         {
             powerUpIndicator.transform.localScale  = new Vector3(8.58f,8.58f,8.58f);

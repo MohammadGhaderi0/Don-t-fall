@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         SetSpeed();
-        // SetDirection();
+        SetDirection();
         CheckDying();
     }
 
@@ -33,31 +33,46 @@ public class EnemyController : MonoBehaviour
 
     void SetDirection()
     {
+        // Check if player is above a certain y-position
         if (player.transform.position.y > -1)
         {
-            // Check if any other active enemy is closer to the player
-            foreach (GameObject enemy in otherEnemies.ToArray()) // Convert to array to avoid concurrent modification
+            GameObject closestEnemy = null;
+            float closestDistance = Mathf.Infinity;
+
+            // Find the closest active enemy
+            foreach (GameObject enemy in otherEnemies)
             {
-                if (enemy == null)
+                if (enemy != null)
                 {
-                    otherEnemies.Remove(enemy); // Remove destroyed enemy from the list
-                }
-                if (Vector3.Distance(player.transform.position, enemy.transform.position) < Vector3.Distance(player.transform.position, transform.position))
-                {
-                    // Move towards the position between the player and the closest enemy
-                    Vector3 targetPosition = (player.transform.position + enemy.transform.position) / 2;
-                    enemyRB.AddForce((targetPosition - transform.position).normalized * speed);
-                    return; // Exit the loop once a closer enemy is found
+                    float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
+                    if (distanceToPlayer < closestDistance)
+                    {
+                        closestEnemy = enemy;
+                        closestDistance = distanceToPlayer;
+                    }
                 }
             }
-            // If no other active enemy is closer, move towards the player
-            enemyRB.AddForce((player.transform.position - transform.position).normalized * speed);
+
+            if (closestEnemy != null)
+            {
+                // Move towards the position between the player and the closest enemy
+                Vector3 targetPosition = (player.transform.position + closestEnemy.transform.position) / 2;
+                enemyRB.AddForce((targetPosition - transform.position).normalized * speed);
+            }
+            else
+            {
+                // If no other active enemy is closer, move towards the player
+                enemyRB.AddForce((player.transform.position - transform.position).normalized * speed);
+            }
         }
         else
         {
+            // If player is below a certain y-position, move randomly
             enemyRB.AddForce((new Vector3(Random.Range(0, 3), 0, Random.Range(0, 3)) - transform.position).normalized * speed);
         }
     }
+
+
 
     void CheckDying()            // If enemy falls then dies.
     {
