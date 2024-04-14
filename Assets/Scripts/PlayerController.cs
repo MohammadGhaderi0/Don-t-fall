@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()          // Start is called before the first frame update
     {
         powerUpChargeTime = 7;
-        potionChargeTime = 7;
+        potionChargeTime = 9;
         audioSource = GetComponent<AudioSource>();
         PlayerRB = GetComponent<Rigidbody>();
     }

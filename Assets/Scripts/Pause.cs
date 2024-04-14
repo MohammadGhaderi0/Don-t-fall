@@ -34,7 +34,7 @@ public class Pause : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            Debug.Log(PlayerPrefs.GetFloat("sensitivity"));
+            // Debug.Log(PlayerPrefs.GetFloat("sensitivity"));
         }
     }
 

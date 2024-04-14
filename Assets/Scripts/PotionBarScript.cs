@@ -1,34 +1,10 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public class PotionBarScript : MonoBehaviour
+public class PotionBarScript : SliderController
 {
-    private Slider potionSlider;
-    
-    public PlayerController playerController;
-
-    private GameObject potionUI;
-
-
-    private void Start()
+    protected override float GetValue()
     {
-        potionSlider = GetComponent<Slider>();
-        potionUI = transform.GetChild(0).gameObject;
+        return playerController.potionTime;
     }
-
-    void Update()
-    {
-        PotionSliderController();
-    }
-
-    private void PotionSliderController()
-    {
-        if (playerController.hasPotion)
-        { 
-            potionUI.SetActive(potionSlider.value > 0.1f);
-            potionSlider.value = playerController.potionTime;
-        }
-    }
-
 }
+
+
 
