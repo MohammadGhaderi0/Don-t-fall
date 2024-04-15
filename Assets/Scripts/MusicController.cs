@@ -17,12 +17,9 @@ public class MusicController : MonoBehaviour
     public bool shouldFadeInAtStart= true;
     void Start ()
     {
-        // we will grab the volume from PlayerPrefs when this script
-// first starts
-        volumeON= PlayerPrefs.GetFloat("_MusicVol");
-        volumeON = 1;
-        // create a game object and add an AudioSource to it, to
-// play music on
+        // we will grab the volume from PlayerPrefs when this script first starts
+        volumeON= PlayerPrefs.GetFloat("volume");
+        // create a game object and add an AudioSource to it, to play music on
 		
         sourceGO= new GameObject("Music_AudioSource");
         source= sourceGO.AddComponent<AudioSource>();
@@ -49,9 +46,8 @@ public class MusicController : MonoBehaviour
     }
     void Update ()
     {
-        // if the audiosource is not playing and it's supposed to
-// loop, play it again (Sam?)
-		
+        // if the audiosource is not playing and it's supposed to loop, play it again 
+        
         if( !source.isPlaying && loopMusic )
             source.Play();
 		
@@ -86,5 +82,10 @@ public class MusicController : MonoBehaviour
         targetFadeState=0;
         targetVolume=0;
         fadeTime=fadeAmount;
+    }
+
+    public void SetVolume()
+    {
+        sourceGO.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
     }
 }

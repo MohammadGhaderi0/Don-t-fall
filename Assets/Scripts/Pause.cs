@@ -9,7 +9,7 @@ public class Pause : MonoBehaviour
 
     public GameObject pauseUI;
     
-    private bool paused;
+    public  bool paused;
 
     private bool settingIsOpened;
 
@@ -26,6 +26,8 @@ public class Pause : MonoBehaviour
     public PlayerController playerController;
 
     public SpawnManager spawnManager;
+
+    public Settings setting;
     
 
     public void PauseAndUnpause()
@@ -67,39 +69,18 @@ public class Pause : MonoBehaviour
             settingUI.SetActive(true);
             pauseUI.SetActive(false);
             settingIsOpened = true;
-            ApplySettings();
+            setting.ApplySettings(volume,sensitivity);
         }
         else
         {
+            setting.SetSettings(volume,sensitivity);
             settingIsOpened = false;
-            PlayerPrefs.SetFloat("volume",volume.value);
-            PlayerPrefs.SetFloat("sensitivity",sensitivity.value);
-            soundController.SetVolume(volume.value / 100);
-            input.RotationSpeed = volume.value + 40;
             settingUI.SetActive(false);
             pauseUI.SetActive(true);
         }
     }
 
-    public void ApplySettings()
-    {
-        if (PlayerPrefs.HasKey("volume"))
-        {
-            volume.value = PlayerPrefs.GetFloat("volume");
-        }
-        else
-        {
-            volume.value = 70;
-        }
-        if (PlayerPrefs.HasKey("sensitivity"))
-        {
-            sensitivity.value = PlayerPrefs.GetFloat("sensitivity");
-        }
-        else
-        {
-            sensitivity.value = 70;
-        }
-    }
+    
     
     
 

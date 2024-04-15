@@ -4,12 +4,20 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private float speed = 4;
+ 
     private GameObject player;
+    
     private Rigidbody enemyRB;
+    
     private List<GameObject> otherEnemies; // List to store references to other active enemy GameObjects
+    
+    public SpawnManager spawnManager;
+    
+    
 
     void Start()
     {
+        spawnManager = GameObject.FindWithTag("SpawnManager")?.GetComponent<SpawnManager>();
         enemyRB = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
 
@@ -79,6 +87,7 @@ public class EnemyController : MonoBehaviour
     {
         if (transform.position.y < -10)
         {
+            spawnManager.enemiesLeft--;
             Destroy(gameObject);
         }
     }

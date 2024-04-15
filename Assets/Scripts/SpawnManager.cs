@@ -36,11 +36,14 @@ public class SpawnManager : MonoBehaviour
 
     public List<GameObject> inGroundObjects;
 
+    public int enemiesLeft;
+
     
     
 
     void Start()
     {
+        
         powerUpRandom = Random.Range(0, 6);
         potionRandom = Random.Range(0, 6);
         // starting the first wave for the first time
@@ -51,8 +54,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        if(EnemyCount == 0)                     // If number of enemies become zero, 
+        if(enemiesLeft == 0)                     // If number of enemies become zero, 
         {                                       // then the new wave should be started
             StartNewWave();
         }
@@ -87,7 +89,9 @@ public class SpawnManager : MonoBehaviour
 
 
     // Creates enemies with different skins and sizes
-    void SpawnEnemyWave(int enemiesToSpawn){
+    void SpawnEnemyWave(int enemiesToSpawn)
+    {
+        enemiesLeft = enemiesToSpawn;
         for (int i = 0; i < enemiesToSpawn; i++){
             Material randomMaterial = GetRandomMaterial();
             GameObject newBall;

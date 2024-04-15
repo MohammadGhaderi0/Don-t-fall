@@ -34,7 +34,7 @@ public class InputHandler : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         playerRB.AddForce(FocalPoint.transform.forward * (speed * forwardInput));
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !pause.paused)
         {
             pause.PauseAndUnpause();
         }
