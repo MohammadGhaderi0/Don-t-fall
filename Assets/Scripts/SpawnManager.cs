@@ -35,6 +35,7 @@ public class SpawnManager : MonoBehaviour
     private int numberOfPowerUps;
 
     public List<GameObject> inGroundObjects;
+
     
     
 
@@ -60,6 +61,19 @@ public class SpawnManager : MonoBehaviour
         SpawnPotion();
         
     }
+
+    public void ActiveDeactiveEnemiesKinematic()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Rigidbody rb = enemy.GetComponent<Rigidbody>();
+            rb.isKinematic = !rb.isKinematic;
+        }
+
+    }
+    
 
 
     // Generate random positions for enemies 

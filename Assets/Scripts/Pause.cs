@@ -23,26 +23,10 @@ public class Pause : MonoBehaviour
 
     public InputHandler input;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(hell());
-    }
+    public PlayerController playerController;
 
-    IEnumerator hell()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
-            // Debug.Log(PlayerPrefs.GetFloat("sensitivity"));
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public SpawnManager spawnManager;
+    
 
     public void PauseAndUnpause()
     {
@@ -51,19 +35,27 @@ public class Pause : MonoBehaviour
             Time.timeScale = 1;
             pauseUI.SetActive(false);
             paused = false;
+            playerController.ActiveDeActivePlayerKinematic();
+            spawnManager.ActiveDeactiveEnemiesKinematic();
+            
+            
         }
         else //pause the game
         {
             Time.timeScale = 0;
             pauseUI.SetActive(true);
             paused = true;
+            playerController.ActiveDeActivePlayerKinematic();
+            spawnManager.ActiveDeactiveEnemiesKinematic();
+
+
         }
         
 
     }
     
 
-    public void ExitGame()
+    public void ExitToMainMenu()
     {
         SceneManager.LoadScene(0);
     }
@@ -75,22 +67,7 @@ public class Pause : MonoBehaviour
             settingUI.SetActive(true);
             pauseUI.SetActive(false);
             settingIsOpened = true;
-            if (PlayerPrefs.HasKey("volume"))
-            {
-                volume.value = PlayerPrefs.GetFloat("volume");
-            }
-            else
-            {
-                volume.value = 70;
-            }
-            if (PlayerPrefs.HasKey("sensitivity"))
-            {
-                sensitivity.value = PlayerPrefs.GetFloat("sensitivity");
-            }
-            else
-            {
-                sensitivity.value = 70;
-            }
+            ApplySettings();
         }
         else
         {
@@ -103,5 +80,29 @@ public class Pause : MonoBehaviour
             pauseUI.SetActive(true);
         }
     }
+
+    public void ApplySettings()
+    {
+        if (PlayerPrefs.HasKey("volume"))
+        {
+            volume.value = PlayerPrefs.GetFloat("volume");
+        }
+        else
+        {
+            volume.value = 70;
+        }
+        if (PlayerPrefs.HasKey("sensitivity"))
+        {
+            sensitivity.value = PlayerPrefs.GetFloat("sensitivity");
+        }
+        else
+        {
+            sensitivity.value = 70;
+        }
+    }
+    
+    
+
+    
     
 }

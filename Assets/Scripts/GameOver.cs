@@ -5,22 +5,41 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public TextMeshProUGUI pointsTXT;
-    public AudioSource audioSource;
+    
+    public TextMeshProUGUI recordTXT;
+    
 
 
-    public void ShowGameInfo(int score)
+    public void ShowGameInfo(int score)     // showing record and waves survived
     {
         gameObject.SetActive(true);
-        pointsTXT.text = (score-1).ToString() + " waves survived";
+        pointsTXT.text = (score-1) + " waves survived";
+        if (PlayerPrefs.HasKey("record"))
+        {
+            if (PlayerPrefs.GetInt("record") > (score - 1))
+            {
+                recordTXT.text = "Best Record : " + PlayerPrefs.GetInt("record") + " waves";
+            }
+            else
+            {
+                recordTXT.text = "Best Record : " + (score-1) + " waves";
+                PlayerPrefs.SetInt("record",score-1);
+            }
+        }
+        else
+        {
+            recordTXT.text = "Best Record : " + (score-1) + " waves";
+            PlayerPrefs.SetInt("record",score-1);
+        }
     }
 
     public void RestartBTN(){          // This function called when restart button pressed
-        audioSource.Play();
+        BaseSoundController.Instance.PlaySoundByIndex(0, new Vector3(0,0,0));
         SceneManager.LoadScene(1);
     }
 
     public void MainMenu(){            // This function called when main menu button pressed
-        audioSource.Play();
+        BaseSoundController.Instance.PlaySoundByIndex(0,new Vector3(0,0,0));
         SceneManager.LoadScene(0);
     }
 

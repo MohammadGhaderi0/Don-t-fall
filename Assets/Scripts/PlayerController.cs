@@ -193,6 +193,11 @@ public class PlayerController : MonoBehaviour
             potionTime = potionChargeTime;
         }
     }
+
+    public void ActiveDeActivePlayerKinematic()
+    {
+        PlayerRB.isKinematic = !PlayerRB.isKinematic;
+    }
 }
 
 

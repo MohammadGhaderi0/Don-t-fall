@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     private Rigidbody enemyRB;
     private List<GameObject> otherEnemies; // List to store references to other active enemy GameObjects
-    
+
     void Start()
     {
         enemyRB = GetComponent<Rigidbody>();
@@ -68,20 +68,22 @@ public class EnemyController : MonoBehaviour
         else
         {
             // If player is below a certain y-position, move randomly
-            enemyRB.AddForce((new Vector3(Random.Range(0, 3), 0, Random.Range(0, 3)) - transform.position).normalized * speed);
+            enemyRB.AddForce((new Vector3(Random.Range(0, 3), 0, Random.Range(0, 3)) - transform.position).normalized *
+                             speed);
         }
     }
 
 
 
-    void CheckDying()            // If enemy falls then dies.
+    void CheckDying() // If enemy falls then dies.
     {
         if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }
     }
-    
-    
+
+
+
     
 }

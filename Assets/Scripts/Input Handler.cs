@@ -13,7 +13,6 @@ public class InputHandler : MonoBehaviour
     public Pause pause;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
@@ -35,7 +34,7 @@ public class InputHandler : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         playerRB.AddForce(FocalPoint.transform.forward * (speed * forwardInput));
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             pause.PauseAndUnpause();
         }
