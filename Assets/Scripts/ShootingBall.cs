@@ -18,7 +18,7 @@ public class ShootingBall : MonoBehaviour                            // this is 
         while (true)
         {
             yield return new WaitForSeconds(1);
-            if (Random.Range(0,8) == 1 && !isShooting)
+            if (Random.Range(0,10) == 1 && !isShooting)
             {
                 int location = Random.Range(0, 3);
                 initializeShooting(location);
