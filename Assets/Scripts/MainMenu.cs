@@ -24,15 +24,17 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
+        BaseSoundController.Instance.PlaySoundByIndex(0,new Vector3(0,1,-10));
         Application.Quit();
     }
 
-    public void UpdateSettings()
+    public void UpdateSettings()          // updating setting when opening settings in main menu
     {
-        setting.ApplySettings(volume,sensitivity);
+        BaseSoundController.Instance.PlaySoundByIndex(0,new Vector3(0,1,-10));
+        setting.GetSettingsData(volume,sensitivity);
     }
 
-    public void setSettings()
+    public void setSettings()           // saving settings when leaving settings in main menu
     {
         setting.SetSettings(volume,sensitivity);
         music.SetVolume();

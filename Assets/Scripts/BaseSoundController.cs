@@ -79,7 +79,7 @@ public class BaseSoundController : MonoBehaviour
         tempSoundObj.PlaySound(aPosition);
     }
 
-    public void SetVolume(float givenVolume)
+    public void SetVolume(float givenVolume)                        // for changing the volume in PlayMode
     {
         foreach (SoundObject sfx in soundObjectList)
         {

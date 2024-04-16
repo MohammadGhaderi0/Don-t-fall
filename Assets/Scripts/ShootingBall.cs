@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShootingBall : MonoBehaviour
+public class ShootingBall : MonoBehaviour                            // this is for balls which goes from one side to the other side of the ground
 {
     public GameObject[] rayStation;
 
     public GameObject[] shootingBall;
 
     private bool isShooting;
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(shootBall());
@@ -19,10 +18,10 @@ public class ShootingBall : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            if (Random.Range(0,2) == 1 && !isShooting)
+            if (Random.Range(0,8) == 1 && !isShooting)
             {
-                int ran = Random.Range(0, 3);
-                initializeShooting(ran);
+                int location = Random.Range(0, 3);
+                initializeShooting(location);
                 isShooting = true;
             }
         }

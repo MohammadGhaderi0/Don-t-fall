@@ -167,7 +167,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 6
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 60209611}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.856153, z: -0, w: 0.5167224}
-  m_LocalPosition: {x: 13.37, y: 1.14, z: 7.22}
+  m_LocalPosition: {x: 13.37, y: 0.84, z: 7.22}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -401,7 +401,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.7
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1234,6 +1234,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2d4eb4632ff89504084de124ceedf2e4, type: 2}
   - {fileID: 2100000, guid: 7dc874c331998244eaa078e5d615a6dd, type: 2}
   - {fileID: 2100000, guid: af089ba3f236b004fb2bb64119f294d8, type: 2}
+  numberOfPotions: 0
+  numberOfPowerUps: 0
   inGroundObjects: []
   enemiesLeft: 0
 --- !u!4 &469120058
@@ -2595,7 +2597,6 @@ MonoBehaviour:
   powerUpIndicator: {fileID: 1742897787325631}
   spawnManager: {fileID: 469120057}
   GameOverScreen: {fileID: 280749025}
-  strength: 10
   potionTime: 0
   powerupTime: 0
   gameOver: 0
@@ -2664,7 +2665,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 6
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2761,7 +2762,7 @@ Transform:
   m_GameObject: {fileID: 1327962612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.48980018, z: -0, w: 0.8718347}
-  m_LocalPosition: {x: 14, y: 1.14, z: -8.16}
+  m_LocalPosition: {x: 14, y: 0.84, z: -8.16}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3261,7 +3262,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.7
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -4721,7 +4722,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.7
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5350,7 +5351,7 @@ Transform:
   m_GameObject: {fileID: 1085847817281300102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.67, y: 1.14, z: -18.27}
+  m_LocalPosition: {x: -0.67, y: 0.84, z: -18.27}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5366,7 +5367,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 6
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

@@ -14,6 +14,11 @@ public class GameOver : MonoBehaviour
     {
         gameObject.SetActive(true);
         pointsTXT.text = (score-1) + " waves survived";
+        SubmitRecord(score);
+    }
+
+    private void SubmitRecord(int score)                        // for saving record in playerPrefs 
+    {
         if (PlayerPrefs.HasKey("record"))
         {
             if (PlayerPrefs.GetInt("record") > (score - 1))
@@ -32,7 +37,8 @@ public class GameOver : MonoBehaviour
             PlayerPrefs.SetInt("record",score-1);
         }
     }
-
+    
+    
     public void RestartBTN(){          // This function called when restart button pressed
         BaseSoundController.Instance.PlaySoundByIndex(0, new Vector3(0,0,0));
         SceneManager.LoadScene(1);

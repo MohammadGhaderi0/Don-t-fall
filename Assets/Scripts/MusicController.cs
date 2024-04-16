@@ -5,23 +5,32 @@ using UnityEngine;
 public class MusicController : MonoBehaviour
 {
     private float volume;
+    
     public AudioClip music;
+    
     public bool loopMusic;
+    
     private AudioSource source;
+    
     private GameObject sourceGO;
+    
     private int fadeState;
+    
     private int targetFadeState;
+    
     private float volumeON;
+    
     private float targetVolume;
+    
     public float fadeTime=15f;
+    
     public bool shouldFadeInAtStart= true;
     void Start ()
     {
         // we will grab the volume from PlayerPrefs when this script first starts
         volumeON= PlayerPrefs.GetFloat("volume");
         // create a game object and add an AudioSource to it, to play music on
-		
-        sourceGO= new GameObject("Music_AudioSource");
+		sourceGO= new GameObject("Music_AudioSource");
         source= sourceGO.AddComponent<AudioSource>();
         source.name= "MusicAudioSource";
         source.playOnAwake= true;
@@ -84,7 +93,7 @@ public class MusicController : MonoBehaviour
         fadeTime=fadeAmount;
     }
 
-    public void SetVolume()
+    public void SetVolume()                     // for changing music volume in PlayTime
     {
         sourceGO.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
     }

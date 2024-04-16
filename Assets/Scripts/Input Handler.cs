@@ -16,15 +16,12 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
-        if (PlayerPrefs.HasKey("sensitivity"))
-        {
-            RotationSpeed = 40 + PlayerPrefs.GetFloat("sensitivity");
-        }
-        else
-        {
-            RotationSpeed = 90; 
-        }
+        ApplySensitivitySettings();
+
     }
+    
+    
+    
 
     void Update()
     {
@@ -37,6 +34,19 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !pause.paused)
         {
             pause.PauseAndUnpause();
+        }
+    }
+
+
+    private void ApplySensitivitySettings()
+    {
+        if (PlayerPrefs.HasKey("sensitivity"))
+        {
+            RotationSpeed = 40 + PlayerPrefs.GetFloat("sensitivity");
+        }
+        else
+        {
+            RotationSpeed = 90; 
         }
     }
 }

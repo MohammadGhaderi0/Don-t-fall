@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     
     private Rigidbody enemyRB;
     
-    private List<GameObject> otherEnemies; // List to store references to other active enemy GameObjects
+    private List<GameObject> otherEnemies;                  // List to store references to other active enemy GameObjects
     
     public SpawnManager spawnManager;
     
@@ -19,17 +19,16 @@ public class EnemyController : MonoBehaviour
     {
         spawnManager = GameObject.FindWithTag("SpawnManager")?.GetComponent<SpawnManager>();
         enemyRB = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
-
-        // Find and store references to other active enemy GameObjects
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        player = GameObject.Find("Player");        
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");          // Find and store references to other active enemy GameObjects
         otherEnemies = new List<GameObject>(enemies);
         otherEnemies.Remove(gameObject); // Remove self from the list
+        SetSpeed();
+
     }
 
     void Update()
     {
-        SetSpeed();
         SetDirection();
         CheckDying();
     }
@@ -76,8 +75,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             // If player is below a certain y-position, move randomly
-            enemyRB.AddForce((new Vector3(Random.Range(0, 3), 0, Random.Range(0, 3)) - transform.position).normalized *
-                             speed);
+            enemyRB.AddForce((new Vector3(Random.Range(0, 3), 0, Random.Range(0, 3)) - transform.position).normalized * speed);
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderController : MonoBehaviour
+public class SliderController : MonoBehaviour                     // parent class for potion and powerup slider
 {
     private Slider slider;
     public PlayerController playerController;
@@ -36,10 +36,10 @@ public class SliderController : MonoBehaviour
 
     protected virtual float GetValue()
     {
-        return 0f; // Implement this in child classes
+        return 0f;                // Implement this in child classes
     }
 
-    private void UpdateSliderVisibility()
+    private void UpdateSliderVisibility()           // if the value become less than valueThreshold it hides with setting the scale to zero
     {
         transform.localScale = slider.value > valueThreshold ? Vector3.one : Vector3.zero;
     }

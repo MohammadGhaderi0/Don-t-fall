@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody PlayerRB;
     
-    public float strength = 26;
-    
     public float potionTime, powerupTime;
     
     public bool gameOver, hasPowerUp,hasPotion;
@@ -23,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public int potionChargeTime;
 
 
-    void Start()          // Start is called before the first frame update
+    void Start()         
     {
         powerUpChargeTime = 7;
         potionChargeTime = 9;
@@ -44,13 +42,14 @@ public class PlayerController : MonoBehaviour
      {
         if(other.CompareTag("PowerUp"))
         {
+            spawnManager.numberOfPowerUps--;
             spawnManager.inGroundObjects.Remove(other.gameObject);
             Destroy(other.gameObject);
             TurnOnPowerUpEffect();
         }    
         else if(other.CompareTag("Potion"))
         {
-
+            spawnManager.numberOfPotions--;
             spawnManager.inGroundObjects.Remove(other.gameObject);
             Destroy(other.gameObject);
             TurnOnPotionEffect();
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    // If player collides with enemy and has power up, shoot the enemy
+    // If player collides with enemy, the power is differenct based on powerup and potion it may have
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -72,11 +71,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (hasPotion)
                 {
-                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 2500, ForceMode.Impulse);
+                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 70, ForceMode.Impulse);
                 }
                 else
                 {
-                    enemyRB.AddForce(awayFromPlayer * strength, ForceMode.Impulse);
+                    enemyRB.AddForce(awayFromPlayer * 28, ForceMode.Impulse);
                 }
                 BaseSoundController.Instance.PlaySoundByIndex(3,transform.position);
                 powerupTime = 0;
@@ -85,7 +84,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (hasPotion)
                 {
-                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 30, ForceMode.Impulse);
+                    enemyRB.AddForce((awayFromPlayer - Vector3.up) * 18, ForceMode.Impulse);
                 }
                 else
                 {
@@ -119,7 +118,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, -5, transform.position.z);    // freezing position is used to stop the ball going down forever
             PlayerRB.constraints = RigidbodyConstraints.FreezePosition;                            // which may cause errors and setting the y position to -5 to stop this loop running because it is unnecessary;
-            // audioSource.Play();                                   
             BaseSoundController.Instance.PlaySoundByIndex(7,new Vector3(0,0,0));
             GameOverScreen.ShowGameInfo(spawnManager.WaveNumber);    
             spawnManager.waveText.text = "";                      // hiding the ""wave x"" text when player dies

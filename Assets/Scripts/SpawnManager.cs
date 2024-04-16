@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject PowerupPrefab, smallEnemyPrefab, bigEnemyPrefab, PotionPrefab, player;
     
-    public float SpawnRange = 9;
+    public float SpawnRange = 9.2f;
     
     private const int spawnInterval_powerUp = 6;
     
@@ -30,9 +30,9 @@ public class SpawnManager : MonoBehaviour
     
     private int potionRandom;
 
-    private int numberOfPotions;
+    public int numberOfPotions;
 
-    private int numberOfPowerUps;
+    public int numberOfPowerUps;
 
     public List<GameObject> inGroundObjects;
 
@@ -43,7 +43,6 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        
         powerUpRandom = Random.Range(0, 6);
         potionRandom = Random.Range(0, 6);
         // starting the first wave for the first time
@@ -51,7 +50,6 @@ public class SpawnManager : MonoBehaviour
         SpawnEnemyWave(WaveNumber);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(enemiesLeft == 0)                     // If number of enemies become zero, 
@@ -79,10 +77,15 @@ public class SpawnManager : MonoBehaviour
 
 
     // Generate random positions for enemies 
-    private Vector3 GenerateRandomPosition(){
-        float SpawnPosX = Random.Range(-SpawnRange, SpawnRange);
-        float SpawnPosZ = Random.Range(-SpawnRange, SpawnRange);
-        Vector3 randomPos = new Vector3(SpawnPosX, 0.4f,SpawnPosZ);
+    private Vector3 GenerateRandomPositionEnemies(Vector3 playerPosition, float minDistance) {
+        Vector3 randomPos;
+        float distance;
+        do {
+            float spawnPosX = Random.Range(-SpawnRange, SpawnRange);
+            float spawnPosZ = Random.Range(-SpawnRange, SpawnRange);
+            randomPos = new Vector3(spawnPosX, 0.4f, spawnPosZ);
+            distance = Vector3.Distance(randomPos, playerPosition);
+        } while (distance < minDistance);
         return randomPos;
     }
 
@@ -95,15 +98,15 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0; i < enemiesToSpawn; i++){
             Material randomMaterial = GetRandomMaterial();
             GameObject newBall;
-            if(Random.Range(0,3) ==1)           // // It is 33% possible to spawn big enemy
+            if(Random.Range(0,3) ==1)            // It is 33% possible to spawn big enemy
             { 
-                newBall = Instantiate(bigEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
+                newBall = Instantiate(bigEnemyPrefab,GenerateRandomPositionEnemies(player.transform.position,0.4f),smallEnemyPrefab.transform.rotation);
                 newBall.transform.localScale = new Vector3(3,3,3);
                 newBall.GetComponent<Rigidbody>().mass = 6;
             }
             else
             { 
-                newBall = Instantiate(smallEnemyPrefab,GenerateRandomPosition(),smallEnemyPrefab.transform.rotation);
+                newBall = Instantiate(smallEnemyPrefab,GenerateRandomPositionEnemies(player.transform.position,0.4f),smallEnemyPrefab.transform.rotation);
             }
             newBall.GetComponent<MeshRenderer>().material = randomMaterial;
             
@@ -117,7 +120,7 @@ public class SpawnManager : MonoBehaviour
 
 
       // Generate random positions for powerups(they should not be next to each other) 
-    Vector3 GenerateRandomPositions()
+    Vector3 GenerateRandomPositionsPotionAndPowerUp()
     {
         Vector3 position;
         do
@@ -150,7 +153,7 @@ public class SpawnManager : MonoBehaviour
         {
             if(numberOfPowerUps<=2){
  
-                GameObject newObj = Instantiate(PowerupPrefab, GenerateRandomPositions(), PowerupPrefab.transform.rotation);
+                GameObject newObj = Instantiate(PowerupPrefab, GenerateRandomPositionsPotionAndPowerUp(), PowerupPrefab.transform.rotation);
                 numberOfPowerUps++;
                 inGroundObjects.Add(newObj);
                 
@@ -162,11 +165,11 @@ public class SpawnManager : MonoBehaviour
     }
     void SpawnPotion(){
         potionSpawnTimer += Time.deltaTime;     
-        if (potionSpawnTimer >= spawnInterval_potion + potionRandom)
+        if (potionSpawnTimer >= spawnInterval_potion + potionRandom)    // spawnInterval_potion is the min time to wait
         {
             if (numberOfPotions <=2)
             {
-                GameObject newObj = Instantiate(PotionPrefab,GenerateRandomPositions(), PotionPrefab.transform.rotation);
+                GameObject newObj = Instantiate(PotionPrefab,GenerateRandomPositionsPotionAndPowerUp(), PotionPrefab.transform.rotation);
                 numberOfPotions++;
                 inGroundObjects.Add(newObj);
 

@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    public void ApplySettings(Slider volume,Slider sensitivity)
+    public void GetSettingsData(Slider volume,Slider sensitivity)       // updating the sliders value based on saved playerPrefs
     {
         if (PlayerPrefs.HasKey("volume"))
         {
@@ -28,7 +25,7 @@ public class Settings : MonoBehaviour
 
     }
 
-    public void SetSettings(Slider volume,Slider sensitivity)
+    public void SetSettings(Slider volume,Slider sensitivity)                   // Apply and saving the settings
     {
         PlayerPrefs.SetFloat("volume",volume.value /100);
         PlayerPrefs.SetFloat("sensitivity",sensitivity.value);

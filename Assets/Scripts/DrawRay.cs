@@ -4,8 +4,11 @@ using UnityEngine;
 public class DrawRay : MonoBehaviour
 {
     public Transform rayOrigin;
+    
     private Vector3 direction;
+    
     public float rayLength = 5f;
+    
     public Color rayColor = Color.red;
 
     private LineRenderer lineRenderer;

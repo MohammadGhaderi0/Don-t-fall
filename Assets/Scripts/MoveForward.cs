@@ -6,7 +6,7 @@ public class MoveForward : MonoBehaviour
 {
     public Rigidbody ballRB;
 
-    private float speed = 10;
+    private float speed = 25;
     void Start()
     {
         ballRB = GetComponent<Rigidbody>();
