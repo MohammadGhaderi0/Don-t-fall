@@ -14,7 +14,8 @@ Don't Fall is a 3D game made by unity engine where you control a ball and must a
 ### Linux
 
 1. Download and Extract the Linux release from the Releases section.
-2. Run the game with the following command: `./Don't Fall.x86_64`
+2. Give the program execution right via: `chmod +x "./Don't Fall.x86_64"`
+3. Run the game with the following command: `"./Don't Fall.x86_64"`
 
 ## Assets in the project
 **Balls, Powerbar, Potion, and Island**: [Unity Learn](https://learn.unity.com)     <br>
