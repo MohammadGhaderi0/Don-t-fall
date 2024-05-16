@@ -17,7 +17,7 @@ Don't Fall is a 3D game made by unity engine where you control a ball and must a
 2. Give the program execution right via: `chmod +x "./Don't Fall.x86_64"`
 3. Run the game with the following command: `"./Don't Fall.x86_64"`
 
-### macOs
+### macOS
 1. Download and Unzip the macOS release from the Releases section.
 2. Navigate to the download folder (or wherever you put your app) and add the following: `cd <PATH_TO_THE_GAME>/DontFall.app/Contents/MacOS/`
 3.  add the following: `chmod -R 777 DontFall.app`
