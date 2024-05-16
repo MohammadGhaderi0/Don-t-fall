@@ -19,8 +19,8 @@ Don't Fall is a 3D game made by unity engine where you control a ball and must a
 
 ### macOs
 1. Download and Unzip the macOS release from the Releases section.
-2. Navigate to the download folder (or wherever you put your app) and add the following:`cd <PATH_TO_THE_GAME>/DontFall.app/Contents/MacOS/`
-3. chmod -R 777 DontFall.app
+2. Navigate to the download folder (or wherever you put your app) and add the following: `cd <PATH_TO_THE_GAME>/DontFall.app/Contents/MacOS/`
+3.  add the following: `chmod -R 777 DontFall.app`
 
 ## Assets in the project
 **Balls, Powerbar, Potion, and Island**: [Unity Learn](https://learn.unity.com)     <br>
