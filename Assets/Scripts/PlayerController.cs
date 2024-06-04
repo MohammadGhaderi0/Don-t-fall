@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         PotionEffectUpdate();
         PowerUpUpdate();
         Gameover();
+        
         
     }
 
@@ -192,8 +194,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ActiveDeActivePlayerKinematic()
-    {
+    public void ActiveDeActivePlayerKinematic() // we activate and disactivate kinematic in pause, because it causes weird movements 
+    {                                           // in balls after changing sensitivity
         PlayerRB.isKinematic = !PlayerRB.isKinematic;
     }
 }

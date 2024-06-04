@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
         CheckDying();
     }
 
-    void SetSpeed()
+    void SetSpeed()     // changing speed based on the size
     {
         speed = transform.localScale == new Vector3(3, 3, 3) ? 20 : 6;
     }

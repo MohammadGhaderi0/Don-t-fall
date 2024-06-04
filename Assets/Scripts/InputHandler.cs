@@ -23,7 +23,7 @@ public class InputHandler : MonoBehaviour
     
     
 
-    void Update()
+    void Update()   // updating the movement when player presses wasd
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         FocalPoint.transform.Rotate(Vector3.up, horizontalInput * RotationSpeed * Time.deltaTime);
@@ -38,7 +38,7 @@ public class InputHandler : MonoBehaviour
     }
 
 
-    private void ApplySensitivitySettings()
+    public void ApplySensitivitySettings() 
     {
         if (PlayerPrefs.HasKey("sensitivity"))
         {
